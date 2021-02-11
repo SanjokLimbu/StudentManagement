@@ -12,6 +12,7 @@ export class TeacherComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   ngOnInit(): void {
+    this.populateTable();
   }
   RegisteredUserList: any = [];
   userModel: User = {

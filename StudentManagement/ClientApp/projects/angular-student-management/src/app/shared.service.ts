@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from './Model/Users';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Local } from 'protractor/built/driverProviders';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +30,18 @@ export class SharedService {
 
 
   GetUser(): Observable<any[]> {
-    return this.http.get<any>(this.baseURL + "api/GetUsers");
+    return this.http.get<any[]>(this.baseURL + "Account/GetUsers");
   }
 
   RegisterUser(userModel: User): Observable<User> {
     return this.http.post<User>(this.baseURL + "Account/Register", userModel);
+  }
+
+  LoginUser(userModel: User): Observable<void> {
+    return this.http.post<any>(this.baseURL + "Account/Login", userModel).pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+      return user;
+    }));
   }
  }

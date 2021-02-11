@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../Model/Users';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,7 +10,12 @@ import { User } from '../Model/Users';
 })
 export class NavMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private service: SharedService) {
+    if (this.service.currentUserValue) {
+      this.router.navigate(['administration']);
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -20,10 +26,15 @@ export class NavMenuComponent implements OnInit {
     email!: null,
     token!: null
   }
+
   Login(userModel: User): void {
-    if (userModel.userName == "Admin@Limbu.com" && userModel.password == "Admin") {
-      console.log("Hello World");
+    this.service.LoginUser(userModel).subscribe(data => {
+      console.log(data);
       this.router.navigate(['administration']);
-    }
+    })
+    //if (userModel.userName == "Admin@Limbu.com" && userModel.password == "Admin") {
+    //  console.log("Hello World");
+    //  this.router.navigate(['administration']);
+    //}
   }
 }
