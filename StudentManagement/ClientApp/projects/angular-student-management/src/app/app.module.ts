@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AdministrationComponent } from './administration/administration.component';
 import { TeacherComponent } from './administration/teacher/teacher.component';
 import { StudentComponent } from './administration/student/student.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { StudentComponent } from './administration/student/student.component';
     RouterModule,
     AppRoutingModule
   ],
-  providers: [SharedService],
+  providers: [SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

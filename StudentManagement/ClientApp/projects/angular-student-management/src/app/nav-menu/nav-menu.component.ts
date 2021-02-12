@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../Model/Users';
-import { SharedService } from '../shared.service';
+import { AuthGuard } from '../auth.guard';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,8 +11,9 @@ import { SharedService } from '../shared.service';
 export class NavMenuComponent implements OnInit {
 
   constructor(private router: Router,
-    private service: SharedService) {
-    if (this.service.currentUserValue) {
+    private auth: AuthGuard) {
+    // redirect to home if already logged in
+    if (this.auth.currentUserValue) {
       this.router.navigate(['administration']);
     }
   }
@@ -28,13 +29,9 @@ export class NavMenuComponent implements OnInit {
   }
 
   Login(userModel: User): void {
-    this.service.LoginUser(userModel).subscribe(data => {
+    this.auth.LoginUser(userModel).subscribe(data => {
       console.log(data);
       this.router.navigate(['administration']);
     })
-    //if (userModel.userName == "Admin@Limbu.com" && userModel.password == "Admin") {
-    //  console.log("Hello World");
-    //  this.router.navigate(['administration']);
-    //}
   }
 }

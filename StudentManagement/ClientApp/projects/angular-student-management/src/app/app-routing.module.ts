@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdministrationComponent } from './administration/administration.component';
 import { StudentComponent } from './administration/student/student.component';
 import { TeacherComponent } from './administration/teacher/teacher.component';
+import { AuthGuard } from './auth.guard';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 const route: Routes = [
   {
-    path: 'administration', component: AdministrationComponent, children: [
+    path: 'administration', component: AdministrationComponent, canActivate: [AuthGuard], children: [
       { path: 'teacher', component: TeacherComponent },
       { path: 'student', component: StudentComponent },
       { path: '', component: TeacherComponent, pathMatch: 'full' }

@@ -9,6 +9,11 @@
       <a class="nav-link text-dark" [routerLink]="['/administration/student']">Student</a>
     </li>
   </ul>
+  <ul class="navbar-nav float-right" *ngIf="LoggedIn()">
+    <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link text-dark" [routerLink]="['/nav-menu']" (click)="Logout()">Logout</a>
+    </li>
+  </ul>
 </nav>
 <body class="container">
   <router-outlet></router-outlet>
