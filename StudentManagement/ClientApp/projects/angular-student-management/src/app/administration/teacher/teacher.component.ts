@@ -23,6 +23,10 @@ export class TeacherComponent implements OnInit {
     token!: null
   }
 
+  private userDeleteId!: string;
+  onModalDelete(id: string) {
+    this.userDeleteId = id;
+  }
 
   AddEmployeePreview = false;
   toggleAddEmployee(): void {
@@ -40,5 +44,11 @@ export class TeacherComponent implements OnInit {
       console.log(data);
       alert("Registration Successful.");
     });
+  }
+
+  Delete(): void {
+    const id = this.userDeleteId;
+    this.service.DeleteUser(id).subscribe(
+      (data) => console.log("Success") );
   }
 }

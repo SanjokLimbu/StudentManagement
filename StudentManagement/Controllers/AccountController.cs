@@ -67,5 +67,27 @@ namespace StudentManagement.Controllers
                 return BadRequest();
             }
         }
+        [Route("~/Account/Delete/{id?}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            var findUser = await userManager.FindByIdAsync(id);
+            if (findUser != null)
+            {
+                var deleteUser = await userManager.DeleteAsync(findUser);
+                if (deleteUser.Succeeded)
+                {
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

@@ -24,7 +24,6 @@
               "projects/angular-student-management/src/assets"
             ],
             "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/angular-student-management/src/styles.css"
             ],
             "scripts": [

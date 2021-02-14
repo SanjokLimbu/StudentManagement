@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './Model/Users';
 
@@ -18,5 +18,14 @@ export class SharedService {
 
   RegisterUser(userModel: User): Observable<User> {
     return this.http.post<User>(this.baseURL + "Account/Register", userModel);
+  }
+
+  DeleteUser(id: string): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.baseURL + "Account/Delete" + "/" + id, options);
   }
  }
